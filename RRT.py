@@ -18,7 +18,7 @@ class RRT:
         minDist = float('inf')
         return_node = None
         for node in node_list:
-            node_state = node.val
+            node_state = node._val
             distance = np.linalg.norm(state - node_state, 2)
             if distance < minDist:
                 minDist = distance
@@ -44,9 +44,9 @@ class RRT:
             closest_node = self.get_closest(G, new_state)
             for obs in obstacles:
                 new_state = obs.findMaxTrajectory(
-                    closest_node.val, new_state, step_count)
+                    closest_node._val, new_state, step_count)
             new_node = TreeNode(new_state)
-            closest_node.append(new_node)
+            closest_node._nodes.append(new_node)
             G.append(new_node)
             limit -= 1
         return head
