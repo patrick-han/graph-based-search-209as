@@ -1,5 +1,6 @@
-# Obstacle class for RRT
+# Obstacle class for graph-based search problems
 # By Patrick Han
+from util import *
 
 
 class Obstacle:
@@ -17,6 +18,40 @@ class Obstacle:
         """
         raise NotImplementedError
     
+    def findMaxTrajectory(self, s_nearest, s_rand, num_steps):
+        """
+        Given a selected s_nearest and a randomly sampled s_rand, take as many steps 
+        from s_nearest to s_rand as you can in a world where only this obstacle exists. Return the farthest
+        step taken before collision occurs, or s_rand if no collision occurs. The step size is determined
+        by linearly sampling num_step steps between s_nearest and s_rand
+
+        args:
+            s_nearest : Existing node in the tree that is closest to the sampled s_rand
+            s_rand : Sampled node that we'd like to step towards
+            num_steps : Number of steps to discretize between s_nearest and s_rand
+        returns:
+            (x,y) of the last successful step taken
+        """
+
+        step_idx = 0
+
+        possible_steps = np.linspace(s_nearest, s_rand, num_steps)
+
+        s_best = s_nearest
+
+        while True:
+            s_try = possible_steps[step_idx]
+
+            if self.isCollision(s_try): # This would be logic specific to the obstacle shape
+                break # s_best is still the last s_try
+            elif step_idx == num_steps - 1: # If we've successfully reached s_rand
+                return s_rand
+            else:
+                s_best = s_try
+            
+            step_idx += 1
+
+        return s_best
 
 
 class AxisAlignedRectangle(Obstacle):
@@ -26,8 +61,8 @@ class AxisAlignedRectangle(Obstacle):
     def __init__(self, lowerLeft, upperRight):
         """
         args:
-            lowerLeft  : 
-            upperRight :
+            lowerLeft  : (x,y) coordinate of the lower left corner
+            upperRight : (x,y) coordinate of the upper right corner
         returns:
             Nothing
         """
@@ -53,5 +88,3 @@ class AxisAlignedRectangle(Obstacle):
             return True
         else:
             return False
-
-
