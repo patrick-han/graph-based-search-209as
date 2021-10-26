@@ -1,5 +1,6 @@
 # Obstacle class for graph-based search problems
 # By Patrick Han
+import numpy
 
 class Obstacle:
     """
