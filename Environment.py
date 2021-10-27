@@ -4,7 +4,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 class Environment:
-    def __init__(self, obstacles, graph_builder, goal_state, start_state = np.array([0,0]), limit = 100, step_count = 100, sampler = None, space_size = (6,6)) -> None:
+    def __init__(self, obstacles, graph_builder, goal_state, start_state = np.array([0,0]), space_size = (6,6), sampler = None, ) -> None:
         """
         Initilize an environment object.
         args:
@@ -12,8 +12,6 @@ class Environment:
             graph_builder: Object. Used to construct the graph on the environment. 
             goal_state: numpy array. The goal state to search the graph for.
             start_state: numpy array. The starting state.
-            limit: Number of RRT iterations to run.
-            step_count: Number of steps to make between randomly sampled point and closest point in RRT graph.
             sampler: Function with params(state). Determines how to sample a random point from the space.
             space_size : (x,y) where x bounds the space in the x-axis and y in the y-axis
         """
@@ -26,9 +24,7 @@ class Environment:
             self._start_state,
             self._goal_state, 
             self._obstacles, 
-            self.uniform_sample if not sampler else sampler,
-            limit,
-            step_count)
+            self.uniform_sample if not sampler else sampler)
         
 
 
