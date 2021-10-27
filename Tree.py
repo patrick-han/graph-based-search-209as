@@ -2,7 +2,7 @@
 # By: Vishnu Devarakonda
 
 class TreeNode:
-    def __init__(self, val=None, children = None) -> None:
+    def __init__(self, val = None, children = []) -> None:
         """
         args:
             val: Object. Any state.

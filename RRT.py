@@ -25,7 +25,7 @@ class RRT:
                 return_node = node
         return return_node
 
-    def run(self, start_state, goal_state, obstacles : list, sampler: function, limit = 100, step_count=100):
+    def run(self, start_state, goal_state, obstacles : list, sampler, limit = 100, step_count=100):
         """
         Function run RRT
         args:

@@ -68,9 +68,9 @@ class AxisAlignedRectangle(Obstacle):
         super().__init__()
 
         self._vertices.append(lowerLeft)
-        self._vertices.append((lowerLeft[0], upperRight[1] - lowerLeft[1])) # Upper left
+        self._vertices.append((lowerLeft[0], upperRight[1])) # Upper left
         self._vertices.append(upperRight)
-        self._vertices.append((upperRight[0] - lowerLeft[0], lowerLeft[1])) # Lower right
+        self._vertices.append((upperRight[0], lowerLeft[1])) # Lower right
 
         self._lowerLeft = lowerLeft
         self._upperRight = upperRight
