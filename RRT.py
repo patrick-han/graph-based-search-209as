@@ -25,11 +25,12 @@ class RRT:
                 return_node = node
         return return_node
 
-    def run(self, start_node, obstacles : list, sampler: function, limit = 100, step_count=100):
+    def run(self, start_state, goal_state, obstacles : list, sampler: function, limit = 100, step_count=100):
         """
         Function run RRT
         args:
-            start_node: Tuple. The start state.
+            start_state: numpy array. The start state.
+            goal_state: numpy array. The goal state to search for.
             obstacles: List. Obstacles that are in the space.
             sampler: Function with params(state). Determines how to sample a
             random point from the space.
@@ -37,10 +38,10 @@ class RRT:
             step_count: Number of steps to make between randomly sampled point
               and closest point in RRT graph.
         """
-        head = TreeNode(start_node)
+        head = TreeNode(start_state)
         G = [ head ]
         while limit:
-            new_state = sampler()
+            new_state = goal_state if limit % 5 == 0 else sampler()
             closest_node = self.get_closest(G, new_state)
             for obs in obstacles:
                 new_state = obs.findMaxTrajectory(
