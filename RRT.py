@@ -4,10 +4,15 @@ from Tree import TreeNode
 import numpy as np
 
 class RRT:
-    def __init__(self) -> None:
+    def __init__(self, limit = 100, step_count=100) -> None:
         """
         Initialize an RRT object
+        args:
+            limit: Number of RRT iterations to run.
+            step_count: Number of steps to make between randomly sampled point and closest point in RRT graph.
         """
+        self._limit = limit
+        self._step_count = step_count
 
     def get_closest(self, node_list, state):
         """
@@ -25,19 +30,18 @@ class RRT:
                 return_node = node
         return return_node
 
-    def run(self, start_state, goal_state, obstacles : list, sampler, limit = 100, step_count=100):
+    def run(self, start_state, goal_state, obstacles : list, sampler):
         """
         Function run RRT
         args:
             start_state: numpy array. The start state.
             goal_state: numpy array. The goal state to search for.
             obstacles: List. Obstacles that are in the space.
-            sampler: Function with params(state). Determines how to sample a
-            random point from the space.
-            limit: Number of RRT iterations to run.
-            step_count: Number of steps to make between randomly sampled point
-              and closest point in RRT graph.
+            sampler: Function with params(state). Determines how to sample a 
+                random point from the space.
         """
+        limit = self._limit
+        step_count = self._step_count
         head = TreeNode(start_state)
         G = [ head ]
         while limit:
@@ -49,5 +53,7 @@ class RRT:
             new_node = TreeNode(new_state)
             closest_node._nodes.append(new_node)
             G.append(new_node)
+            if np.all(new_state == goal_state):
+                break
             limit -= 1
         return head
