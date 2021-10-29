@@ -51,6 +51,12 @@ class Environment:
         returns:
             None
         """
+        # Only plot if obstacles are 2D
+        # TODO: 3D support
+        if self._obstacles[0]._dim != 2:
+            print("Only 2D visualization is supported")
+            return
+
         
         def plot_graph(head):
             for child in head._nodes:
