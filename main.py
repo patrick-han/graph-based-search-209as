@@ -2,7 +2,7 @@
 # By: Vishnu Devarakonda & Patrick Han
 
 from Environment import Environment
-from obstacle import AxisAlignedRectangle, Obstacle
+from obstacle import AxisAlignedRectangle2D, Obstacle
 from RRT import RRT
 import numpy as np
 
@@ -13,7 +13,7 @@ my_obstacles = []
 # ySpace = [i for i in np.arange(1,6,.5)]
 # for x in xSpace:
 #     for y in ySpace:
-#         my_obstacles.append(AxisAlignedRectangle((x,y), (x+.2,y+.2)))
+#         my_obstacles.append(AxisAlignedRectangle2D((x,y), (x+.2,y+.2)))
 
 
 radius = 2
@@ -27,15 +27,15 @@ def y(x):
 # circle
 for x in np.arange(1, 6+3, .3):
     y1, yRef = y(x)
-    my_obstacles.append(AxisAlignedRectangle((x, y1),(x+.2, y1+.2)))
-    my_obstacles.append(AxisAlignedRectangle((x, yRef),(x+.2, yRef + .2)))
+    my_obstacles.append(AxisAlignedRectangle2D((x, y1),(x+.2, y1+.2)))
+    my_obstacles.append(AxisAlignedRectangle2D((x, yRef),(x+.2, yRef + .2)))
 
-# my_obstacles.append(AxisAlignedRectangle((2,4),(3,5)))
+# my_obstacles.append(AxisAlignedRectangle2D((2,4),(3,5)))
 
-# obstacle1 = AxisAlignedRectangle((3,1),(5,2))
-# obstacle2 = AxisAlignedRectangle((3,3),(5,4))
-# obstacle3 = AxisAlignedRectangle((1,1),(2,2))
-# obstacle4 = AxisAlignedRectangle((1,4),(2,5))
+# obstacle1 = AxisAlignedRectangle2D((3,1),(5,2))
+# obstacle2 = AxisAlignedRectangle2D((3,3),(5,4))
+# obstacle3 = AxisAlignedRectangle2D((1,1),(2,2))
+# obstacle4 = AxisAlignedRectangle2D((1,4),(2,5))
 # my_obstacles.append(obstacle1)
 # my_obstacles.append(obstacle2)
 # my_obstacles.append(obstacle3)
